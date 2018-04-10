@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Cinema E-Booking System</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign in</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <h1 class="h2">Registration</h1>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <form action="#">
+                <div class="container">
+                    <div class="form-group">
+                        <label for="fname"><b>First Name</b></label>
+                        <input type="text" class="form-control" placeholder="Enter First Name" id="fname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lname"><b>Last Name</b></label>
+                        <input type="text" class="form-control" placeholder="Enter Last Name" id="lname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" class="form-control" placeholder="Enter Email" id="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" class="form-control" placeholder="Enter Password" id="psw" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="psw-repeat"><b>Repeat Password</b></label>
+                        <input type="password" class="form-control" placeholder="Repeat Password" id="psw-repeat" required>
+                    </div>
+
+                    <div class="custom-control custom-checkbox" style="margin-bottom: 15px;">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info">Sign Up</button>
+                        <button type="button" class="btn">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

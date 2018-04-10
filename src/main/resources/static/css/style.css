@@ -1,0 +1,180 @@
+.icon-container {
+    margin-bottom: 20px;
+    padding: 7px 0 0 0;
+    font-size: 24px;
+}
+
+span.price {
+    float: right;
+    color: grey;
+    font-size: 18px;
+}
+
+span.psw {
+    float: right;
+}
+
+.jumbotron {
+    background-color: #fff;
+    margin: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    /* Behind the navbar */
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px;
+    /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #eaeaea;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather, .sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+.navbar {
+    margin-bottom: 15px;
+}
+
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+/*
+ * Card
+ */
+.card {
+    background-color: #f2f2f2;
+}
+
+/*
+ * Seat Selection
+ */
+.screen {
+    width: 500px;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 auto 45px auto;
+    border-bottom: 2px solid #000;
+}
+
+.seating-layout {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.seating-layout td {
+    width: 8.3%;
+    height: 75px;
+    line-height: 45px;
+    vertical-align: middle;
+    padding: 13px 0;
+}
+
+.seat {
+    height: 49px;
+    line-height: 45px;
+    vertical-align: center;
+    margin: 0 5px;
+    text-align: center;
+    border: 2px solid #000;
+    border-radius: 0 0 15px 15px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.seat-legend {
+    width: 960px;
+    line-height: 36px;
+    margin: 15px auto 0 auto;
+}
+
+.seat-legend .seat {
+    height: 26px;
+    width: 36px;
+    margin: 5px 5px 5px 0;
+    border-radius: 0 0 10px 10px;
+}
+
+.seat-legend button {
+    margin-left: auto;
+}
+
+.taken {
+    border-color: red;
+    color: red;
+}
+
+.seat .fa-wheelchair {
+    font-size: 30px;
+    vertical-align: sub;
+    margin-left: 3px;
+}
+/*
+ * Misc
+ */
+.result {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.result > p {
+    margin: 0;
+}
+
+.time-list td {
+    vertical-align: middle;
+}
+
+.movie-details {
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+}
