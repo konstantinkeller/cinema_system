@@ -27,12 +27,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                     .and()
                 .formLogin()
                     .loginPage("/login")
+                    .defaultSuccessUrl("/success" , true)
                     .permitAll()
                     .and()
                 .logout()
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
                     .permitAll();
+
     }
 
     @Bean

@@ -11,4 +11,13 @@ public class WebController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/success")
+    public String loginSuccess(Model model) {
+        return "success";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
 }
