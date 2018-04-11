@@ -1,14 +1,14 @@
 package com.csci4050.cinema_system.controller;
 
+import com.csci4050.cinema_system.dao.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WebController {
+    @Autowired
+    private UserRepository userRepository;
 
-    @RequestMapping("/register")
-    public String register(Model model) {
-        return "register";
-    }
 }
