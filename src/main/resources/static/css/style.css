@@ -73,7 +73,7 @@ span.psw {
  * Navbar
  */
 .navbar {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .navbar-brand {
@@ -89,6 +89,10 @@ span.psw {
  */
 .card {
     background-color: #f2f2f2;
+}
+
+.card .card {
+    background-color: #fff;
 }
 
 /*

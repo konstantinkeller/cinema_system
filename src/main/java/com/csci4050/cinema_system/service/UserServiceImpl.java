@@ -47,6 +47,16 @@ public class UserServiceImpl implements UserService {
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        user.setStreet(registration.getStreet());
+        user.setCity(registration.getCity());
+        user.setState(registration.getState());
+        user.setZip(registration.getZip());
+        user.setPhoneNum(registration.getPhoneNum());
+        user.setCardType(registration.getCardType());
+        user.setCardNum(registration.getCardNum());
+        user.setCardExp(registration.getCardExp());
+        user.setCardZip(registration.getCardZip());
+        user.setPromos(registration.getPromos());
         return userRepository.save(user);
     }
 

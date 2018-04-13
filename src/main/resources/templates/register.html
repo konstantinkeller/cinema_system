@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -25,49 +26,211 @@
     <div class="card">
         <div class="card-body">
             <form th:action="@{/register}" th:object="${user}" method="post">
-                <div class="container">
-                    <div class="form-group">
-                        <label><b>First Name</b></label>
-                        <input th:field="*{firstName}" class="form-control" placeholder="Enter First Name" required>
-                        <p th:each="error: ${#fields.errors('firstName')}"
-                           th:text="${error}">Validation error</p>
-                    </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Required Info</h5>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label><b>First Name <span style="color: red;">*</span></b></label>
+                                <input th:field="*{firstName}" class="form-control" placeholder="Enter First Name" required>
+                                <p th:each="error: ${#fields.errors('firstName')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
 
-                    <div class="form-group">
-                        <label><b>Last Name</b></label>
-                        <input th:field="*{lastName}" class="form-control" placeholder="Enter First Name" required>
-                        <p th:each="error : ${#fields.errors('lastName')}"
-                           th:text="${error}">Validation error</p>
-                    </div>
+                            <div class="form-group col-md-6">
+                                <label><b>Last Name <span style="color: red;">*</span></b></label>
+                                <input th:field="*{lastName}" class="form-control" placeholder="Enter First Name" required>
+                                <p th:each="error : ${#fields.errors('lastName')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label><b>Email</b></label>
-                        <input th:field="*{email}" class="form-control" placeholder="Enter Email" required>
-                        <p th:each="error : ${#fields.errors('email')}"
-                           th:text="${error}">Validation error</p>
-                    </div>
+                        <div class="form-group">
+                            <label><b>Email <span style="color: red;">*</span></b></label>
+                            <input th:field="*{email}" class="form-control" placeholder="Enter Email" required>
+                            <p th:each="error : ${#fields.errors('email')}"
+                               th:text="${error}">Validation error
+                            </p>
+                        </div>
 
-                    <div class="form-group">
-                        <label><b>Password</b></label>
-                        <input th:field="*{password}" type="password" class="form-control" placeholder="Enter Password" required>
-                        <p th:each="error : ${#fields.errors('password')}"
-                           th:text="${error}">Validation error</p>
-                    </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label><b>Password <span style="color: red;">*</span></b></label>
+                                <input th:field="*{password}" type="password" class="form-control" placeholder="Enter Password" required>
+                                <p th:each="error : ${#fields.errors('password')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
 
-                    <div class="form-group">
-                        <label><b>Repeat Password</b></label>
-                        <input th:field="*{confirmPassword}" type="password" class="form-control" placeholder="Repeat Password" required>
+                            <div class="form-group col-md-6">
+                                <label><b>Repeat Password <span style="color: red;">*</span></b></label>
+                                <input th:field="*{confirmPassword}" type="password" class="form-control" placeholder="Repeat Password" required>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="custom-control custom-checkbox" style="margin-bottom: 15px;">
-                        <input type="checkbox" th:field="*{terms}" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
-                    </div>
+                <div class="card" style="margin-top: 20px;">
+                    <div class="card-body">
+                        <h5 class="card-title">Optional Info</h5>
+                        <div class="form-group">
+                            <label><b>Address</b></label>
+                            <input th:field="*{street}" class="form-control" placeholder="1234 Main St">
+                            <p th:each="error: ${#fields.errors('street')}"
+                               th:text="${error}">Validation error
+                            </p>
+                        </div>
 
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-info">Sign Up</button>
-                        <button type="button" class="btn">Cancel</button>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label><b>City</b></label>
+                                <input th:field="*{city}" class="form-control">
+                                <p th:each="error : ${#fields.errors('city')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label><b>State</b></label>
+                                <select id="state" name="state" class="form-control">
+                                    <option value="" disabled selected>Choose...</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="DC">District Of Columbia</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                                <p th:each="error : ${#fields.errors('state')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label><b>Zip</b></label>
+                                <input th:field="*{zip}" class="form-control" value="">
+                                <p th:each="error : ${#fields.errors('zip')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><b>Phone Number</b></label>
+                            <input th:field="*{phoneNum}" class="form-control" placeholder="(123) 456-7890">
+                            <p th:each="error : ${#fields.errors('phoneNum')}"
+                               th:text="${error}">Validation error
+                            </p>
+                        </div>
+
+                        <hr>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label><b>Credit Card Type</b></label>
+                                <select id="cardType" name="cardType" class="form-control">
+                                    <option value="" disabled selected>Choose...</option>
+                                    <option value="visa">VISA</option>
+                                    <option value="mc">MasterCard</option>
+                                    <option value="amex">American Express</option>
+                                    <option value="discover">Discover</option>
+                                </select>
+                                <p th:each="error : ${#fields.errors('cardType')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label><b>Expiration</b></label>
+                                <input th:field="*{cardExp}" class="form-control" placeholder="MM/YYYY">
+                                <p th:each="error : ${#fields.errors('cardExp')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label><b>Billing Zip</b></label>
+                                <input th:field="*{cardZip}" class="form-control">
+                                <p th:each="error : ${#fields.errors('cardZip')}"
+                                   th:text="${error}">Validation error
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><b>Credit Card Number</b></label>
+                            <input th:field="*{cardNum}" class="form-control" placeholder="1234 1234 1234 1234">
+                            <p th:each="error : ${#fields.errors('cardNum')}"
+                               th:text="${error}">Validation error
+                            </p>
+                        </div>
+
                     </div>
+                </div>
+
+                <div class="custom-control custom-checkbox" style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px;">
+                    <input type="checkbox" th:field="*{terms}" class="custom-control-input" id="customCheck1" />
+                    <label class="custom-control-label" for="customCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
+                    <p th:each="error : ${#fields.errors('terms')}"
+                       th:text="${error}">Validation error
+                    </p>
+                </div>
+
+                <div class="custom-control custom-checkbox" style="margin-top: 15px; margin-bottom: 15px; margin-left: 10px;">
+                    <input type="checkbox" th:field="*{promos}" class="custom-control-input" id="customCheck1" th:checked="true" checked/>
+                    <label class="custom-control-label" for="customCheck1">I would like to receive emails about promotional offers</a></label>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0; padding-left: 10px;">
+                    <button type="submit" class="btn btn-info">Sign Up</button>
+                    <button type="button" class="btn">Cancel</button>
                 </div>
             </form>
         </div>

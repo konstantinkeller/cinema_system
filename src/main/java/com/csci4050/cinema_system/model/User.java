@@ -15,6 +15,19 @@ public class User {
     private String email;
     private String password;
 
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
+    private String phoneNum;
+
+    private String cardType;
+    private String cardNum;
+    private String cardExp;
+    private String cardZip;
+
+    private Boolean promos;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
@@ -85,5 +98,85 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        this.zip = zip;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
+    public String getCardExp() {
+        return cardExp;
+    }
+
+    public void setCardExp(String cardExp) {
+        this.cardExp = cardExp;
+    }
+
+    public String getCardZip() {
+        return cardZip;
+    }
+
+    public void setCardZip(String cardZip) {
+        this.cardZip = cardZip;
+    }
+
+    public Boolean getPromos() {
+        return promos;
+    }
+
+    public void setPromos(Boolean promos) {
+        this.promos = promos;
     }
 }
