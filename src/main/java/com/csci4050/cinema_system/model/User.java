@@ -28,6 +28,8 @@ public class User {
 
     private Boolean promos;
 
+    private Boolean confirmed=false;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_roles",
@@ -178,5 +180,13 @@ public class User {
 
     public void setPromos(Boolean promos) {
         this.promos = promos;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }

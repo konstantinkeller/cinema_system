@@ -3,6 +3,7 @@ package com.csci4050.cinema_system.configuration;
 import com.csci4050.cinema_system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
@@ -22,7 +24,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/register").permitAll()
+                    .antMatchers("/register", "/register/*", "/forgot_pass", "/check_pass_reset").permitAll()
+                    .antMatchers("/reset_pass").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
@@ -31,6 +34,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
                     .permitAll();

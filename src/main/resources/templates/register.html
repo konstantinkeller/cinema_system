@@ -26,6 +26,11 @@
     <div class="card">
         <div class="card-body">
             <form th:action="@{/register}" th:object="${user}" method="post">
+                <p class="error-message"
+                   th:if="${#fields.hasGlobalErrors()}"
+                   th:each="error : ${#fields.errors('global')}"
+                   th:text="${error}">Validation error</p>
+
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Required Info</h5>
