@@ -1,5 +1,6 @@
 package com.csci4050.cinema_system.service;
 
+import com.csci4050.cinema_system.dao.RoleRepository;
 import com.csci4050.cinema_system.dao.UserRepository;
 import com.csci4050.cinema_system.dto.UserRegistrationDto;
 import com.csci4050.cinema_system.model.Role;
@@ -21,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -46,7 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(registration.getLastName());
         user.setEmail(registration.getEmail());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        user.setRoles(Arrays.asList(roleRepository.findRoleByName("ROLE_USER")));
         user.setStreet(registration.getStreet());
         user.setCity(registration.getCity());
         user.setState(registration.getState());

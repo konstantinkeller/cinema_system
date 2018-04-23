@@ -26,6 +26,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers("/register", "/register/*", "/forgot_pass", "/check_pass_reset").permitAll()
                     .antMatchers("/reset_pass").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
+                    .antMatchers("/admin*").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
