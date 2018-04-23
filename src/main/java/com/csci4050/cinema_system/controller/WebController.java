@@ -10,13 +10,16 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 @Controller
@@ -34,8 +37,11 @@ public class WebController {
     MailSender mailSender;
 
     @GetMapping("/success")
-    public String loginSuccess(Model model) {
-        return "success";
+    public String loginSuccess(Authentication authentication) {
+        boolean admin = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+
+        if (admin) return "redirect:/admin";
+        else return "success";
     }
 
     @GetMapping("/login")

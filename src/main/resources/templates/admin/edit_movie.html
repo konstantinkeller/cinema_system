@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Cinema E-Booking System</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign in</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <nav class="col-md-2 bg-dark sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Employees
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/admin/movies}">
+                            Manage Movies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            Reports
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Edit Movie</h1>
+            </div>
+
+            <form th:action="@{/admin/movies/save}" th:object="${mov}" method="post">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label><b>Movie Title</b></label>
+                        <input th:field="*{title}" class="form-control" placeholder="Enter Movie Title" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label><b>Category</b></label>
+                        <input th:field="*{category}" class="form-control" placeholder="Enter Movie Category" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label><b>Rating</b></label>
+                        <select th:field="*{mpaaRating}" class="form-control" required>
+                            <option value="G">G</option>
+                            <option value="PG">PG</option>
+                            <option value="PG-13">PG-13</option>
+                            <option value="R">R</option>
+                            <option value="NC-17">NC-17</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-10">
+                        <label><b>Cast</b></label>
+                        <input th:field="*{cast}" class="form-control" placeholder="Enter Movie Cast" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label><b>Director</b></label>
+                        <input th:field="*{director}" class="form-control" placeholder="Enter Director" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label><b>Producer</b></label>
+                        <input th:field="*{producer}" class="form-control" placeholder="Enter Producer" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><b>Synopsis</b></label>
+                    <textarea th:field="*{synopsis}" class="form-control" placeholder="Enter Movie Synopsis" rows="10"
+                              required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-info">Save</button>
+            </form>
+        </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

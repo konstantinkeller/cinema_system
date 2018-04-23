@@ -26,7 +26,7 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link" href="#">
                               Dashboard
                             </a>
                         </li>
@@ -36,8 +36,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/admin/movies}">
-                              Manage Movies
+                            <a class="nav-link active" th:href="@{/admin/movies}">
+                                Manage Movies
                             </a>
                         </li>
                         <li class="nav-item">
@@ -57,13 +57,43 @@
 
             <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Admin Dashboard</h1>
+                    <h1 class="h2">Manage Movies</h1>
                 </div>
 
-                <p class="lead">Please use the navigation on the left to browse the admin dashboard</p>
-                <div align="right">
-                    <a href="#" role="button" class="btn btn-info">Return to Home Page</a>
-                </div>
+                <form th:action="@{/admin/movies}" method="post">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Movie ID</th>
+                                <th>Movie Title</th>
+                                <th>Movie Director</th>
+                                <th>Edit Movie</th>
+                                <th>Delete Movie</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="mov : *{movieList}">
+                                <td th:text="${mov.id}"></td>
+                                <td th:text="${mov.title}"></td>
+                                <td th:text="${mov.director}"></td>
+                                <td>
+                                    <button class="btn btn-danger" type="submit" id="edit_mov" name="edit_mov" th:value="${mov.id}"><img
+                                            th:src="@{/img/add_white.svg}" height="24" width="24"> Edit
+                                    </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" type="submit" id="delete_mov" name="delete_mov" th:value="${mov.id}"><img
+                                            th:src="@{/img/delete_white.svg}" height="24" width="24"> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="btn btn-success" type="submit" id="add_mov" name="add_mov"><img
+                            th:src="@{/img/add_white.svg}" height="24" width="24"> Add Movie
+                    </button>
+                </form>
             </main>
         </div>
     </div>

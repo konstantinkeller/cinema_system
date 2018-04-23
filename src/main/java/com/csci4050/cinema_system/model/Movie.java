@@ -1,11 +1,10 @@
 package com.csci4050.cinema_system.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
-@Entity
+@Entity(name = "Movie")
+@Table(name = "movie")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,9 +17,13 @@ public class Movie {
     private String producer;
     private String synopsis;
 
-    private Float rating;
-    private String showtimes;
+    private String mpaaRating;
 
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Review> reviews;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Collection<Showing> showings;
 
     public Movie() {}
 
@@ -80,19 +83,27 @@ public class Movie {
         this.synopsis = synopsis;
     }
 
-    public Float getRating() {
-        return rating;
+    public String getMpaaRating() {
+        return mpaaRating;
     }
 
-    public void setRating(Float rating) {
-        this.rating = rating;
+    public void setMpaaRating(String mpaaRating) {
+        this.mpaaRating = mpaaRating;
     }
 
-    public String getShowtimes() {
-        return showtimes;
+    public Collection<Review> getReviews() {
+        return reviews;
     }
 
-    public void setShowtimes(String showtimes) {
-        this.showtimes = showtimes;
+    public void setReviews(Collection<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Collection<Showing> getShowings() {
+        return showings;
+    }
+
+    public void setShowings(Collection<Showing> showings) {
+        this.showings = showings;
     }
 }
