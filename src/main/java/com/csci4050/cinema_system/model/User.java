@@ -34,10 +34,8 @@ public class User {
     private String cardExp;
     private String cardZip;
 
-    @NotEmpty
     private Boolean promos=true;
 
-    @NotEmpty
     private Boolean confirmed=false;
 
     @ManyToMany(fetch = FetchType.EAGER)
