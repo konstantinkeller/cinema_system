@@ -24,14 +24,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/register", "/register/*", "/forgot_pass", "/check_pass_reset").permitAll()
+                    .antMatchers("/", "/covers", "/covers/*", "/register", "/register/*", "/forgot_pass", "/check_pass_reset", "/movies", "/movies/*").permitAll()
                     .antMatchers("/reset_pass").hasAuthority("CHANGE_PASSWORD_PRIVILEGE")
                     .antMatchers("/admin*").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/success" , true)
+                    .defaultSuccessUrl("/" , true)
                     .permitAll()
                     .and()
                 .logout()
@@ -58,8 +58,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/*.css");
-        web.ignoring().antMatchers("/js/*.js");
+        web.ignoring().antMatchers("/css/**", "/img/**", "/js/**");
     }
 
     @Override

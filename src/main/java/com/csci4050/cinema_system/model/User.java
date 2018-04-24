@@ -1,6 +1,7 @@
 package com.csci4050.cinema_system.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 
 @Entity
@@ -10,9 +11,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String lastName;
+
+    @NotEmpty
     private String email;
+
+    @NotEmpty
     private String password;
 
     private String street;
@@ -26,11 +34,13 @@ public class User {
     private String cardExp;
     private String cardZip;
 
-    private Boolean promos;
+    @NotEmpty
+    private Boolean promos=true;
 
+    @NotEmpty
     private Boolean confirmed=false;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -100,6 +110,18 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean hasRole(Role r) {
+        return this.roles.contains(r);
+    }
+
+    public void addRole(Role r) {
+        this.roles.add(r);
+    }
+
+    public void removeRole(Role r) {
+        this.roles.remove(r);
     }
 
     public String getStreet() {

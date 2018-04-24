@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
+
+<body>
+<form th:action="@{/logout}" id="logout" method="post">
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+</form>
+
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/}">Cinema E-Booking System</a>
+    <ul class="navbar-nav ml-auto px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/}">Home</a>
+        </li>
+        <li class="nav-item text-nowrap">
+            <a class="nav-link active" th:href="@{/movies}">Movies</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/profile}">My Profile</a>
+        </li>
+        <li sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')" class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/admin}">Admin Dashboard</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item text-nowrap">
+            <a class="nav-link" href="javascript:document.getElementById('logout').submit()">Logout</a>
+        </li>
+        <li sec:authorize="isAnonymous()" class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 bg-dark sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            1. Select Movie
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            2. Select Show Time
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            3. Select Seats
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            4. Review Order
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            5. Checkout
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            6. Order Confirmation
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="container-fluid" style="width: 85%;">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Select Show Time</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 movie-details">
+                        <p th:text="${mov.title} + ' | ' + ${mov.mpaaRating}"></p>
+                        <img th:src="@{/covers/{name}(name=${mov.imageName})}" style="width: 80%;"/>
+                    </div>
+                    <div class="col-md-9">
+                        <form th:action="@{/book/showtimes}" method="post">
+                            <table class="table table-striped time-list">
+                                <thead>
+                                    <tr class="bg-primary" style="color: #fff;">
+                                        <th width="30%">Date</th>
+                                        <th width="25%">Time</th>
+                                        <th width="25%">Ticket Price</th>
+                                        <th width="20%" style="text-align: center;">Add</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="s : ${showtimeList}">
+                                        <td th:text="${s.showdate}" width="30%"></td>
+                                        <td th:text="${s.showtime}" width="25%"></td>
+                                        <td th:text="'$' + ${s.price}" width="25%">$</td>
+                                        <td width="20%" style="text-align: center;"><button id="select_showtime" name="select_showtime" th:value="${s.id}" class="btn btn-success">Select</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

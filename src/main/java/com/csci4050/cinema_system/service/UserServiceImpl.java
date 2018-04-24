@@ -2,6 +2,7 @@ package com.csci4050.cinema_system.service;
 
 import com.csci4050.cinema_system.dao.RoleRepository;
 import com.csci4050.cinema_system.dao.UserRepository;
+import com.csci4050.cinema_system.dto.UserDto;
 import com.csci4050.cinema_system.dto.UserRegistrationDto;
 import com.csci4050.cinema_system.model.Role;
 import com.csci4050.cinema_system.model.User;
@@ -13,8 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,8 +43,47 @@ public class UserServiceImpl implements UserService {
                 mapRolesToAuthorities(user.getRoles()));
     }
 
+    public User findById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
+    }
+
+    public User update(UserDto userDto){
+        User user = findById(userDto.getId());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+
+        if (!userDto.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
+
+        if (userDto.isEmployee()) {
+            user.setRoles(new LinkedList<>(Arrays.asList(roleRepository.findRoleByName("ROLE_USER"), roleRepository.findRoleByName("ROLE_ADMIN"))));
+        } else {
+            user.setRoles(new LinkedList<>(Arrays.asList(roleRepository.findRoleByName("ROLE_USER"))));
+        }
+
+        return userRepository.save(user);
+    }
+
+    public User save(UserDto userDto){
+        User user = new User();
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        if (userDto.isEmployee()) {
+            user.setRoles(new LinkedList<>(Arrays.asList(roleRepository.findRoleByName("ROLE_USER"), roleRepository.findRoleByName("ROLE_ADMIN"))));
+        } else {
+            user.setRoles(new LinkedList<>(Arrays.asList(roleRepository.findRoleByName("ROLE_USER"))));
+        }
+
+        return userRepository.save(user);
     }
 
     public User save(UserRegistrationDto registration){
@@ -69,7 +111,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());

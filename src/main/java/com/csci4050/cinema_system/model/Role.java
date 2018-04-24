@@ -33,4 +33,13 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role)) return false;
+
+        Role r = (Role)o;
+        return this.name.equals(r.name);
+    }
 }

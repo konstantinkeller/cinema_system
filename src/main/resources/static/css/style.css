@@ -35,8 +35,7 @@ span.psw {
 }
 
 .sidebar-sticky {
-    position: -webkit-sticky;
-    position: sticky;
+    position: absolute;
     top: 48px;
     /* Height of navbar */
     height: calc(100vh - 48px);
@@ -181,4 +180,8 @@ span.psw {
     text-align: center;
     font-weight: bold;
     font-size: 22px;
+}
+
+.table td, .table th {
+    vertical-align: middle;
 }

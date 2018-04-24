@@ -1,9 +1,6 @@
 package com.csci4050.cinema_system.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Ticket {
@@ -11,13 +8,21 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String bookingNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "booking_id")
+    private Booking booking;
 
-    private Long userId;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    private Long movieId;
+    @OneToOne
+    @JoinColumn(name = "movie_id")
+    private Movie movie;
 
-    private String showtime;
+    @OneToOne
+    @JoinColumn(name = "showing_id")
+    private Showing showing;
 
     public Ticket() {}
 
@@ -29,35 +34,35 @@ public class Ticket {
         this.id = id;
     }
 
-    public String getBookingNumber() {
-        return bookingNumber;
+    public Booking getBooking() {
+        return booking;
     }
 
-    public void setBookingNumber(String bookingNumber) {
-        this.bookingNumber = bookingNumber;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getMovieId() {
-        return movieId;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    public String getShowtime() {
-        return showtime;
+    public Showing getShowing() {
+        return showing;
     }
 
-    public void setShowtime(String showtime) {
-        this.showtime = showtime;
+    public void setShowing(Showing showing) {
+        this.showing = showing;
     }
 }

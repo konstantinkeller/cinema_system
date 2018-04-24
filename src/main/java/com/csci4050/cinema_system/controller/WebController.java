@@ -1,11 +1,18 @@
 package com.csci4050.cinema_system.controller;
 
+import com.csci4050.cinema_system.dao.MovieRepository;
 import com.csci4050.cinema_system.dao.PasswordResetTokenRepository;
 import com.csci4050.cinema_system.dao.UserRepository;
+import com.csci4050.cinema_system.model.Movie;
 import com.csci4050.cinema_system.model.PasswordResetToken;
 import com.csci4050.cinema_system.model.User;
+import com.csci4050.cinema_system.service.StorageService;
 import com.csci4050.cinema_system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,8 +26,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class WebController {
@@ -31,17 +41,38 @@ public class WebController {
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private StorageService storageService;
 
     @Autowired
     MailSender mailSender;
 
-    @GetMapping("/success")
-    public String loginSuccess(Authentication authentication) {
-        boolean admin = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+    @GetMapping("/")
+    public String index(Model model) {
+        List<Movie> recents = movieRepository.findTop5ByOrderByIdDesc();
 
-        if (admin) return "redirect:/admin";
-        else return "success";
+        model.addAttribute("recents", recents);
+
+        return "index";
+    }
+
+    @GetMapping({"/covers", "/covers/{filename:.+}"})
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable Optional<String> filename) {
+        Resource file;
+        if (filename.isPresent()) {
+            String f = filename.get();
+            file = storageService.loadAsResource(f);
+        } else {
+            file = new ClassPathResource("static" + File.separator + "img" + File.separator + "movies" + File.separator + "placeholder.png");
+        }
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @GetMapping("/login")

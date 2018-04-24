@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+<form th:action="@{/logout}" id="logout" method="post">
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
+</form>
+
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/}">Cinema E-Booking System</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="javascript:document.getElementById('logout').submit()">Logout</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <nav class="col-md-2 bg-dark sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin}">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/users}">
+                            Manage Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/admin/movies}">
+                            Manage Movies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/bookings}">
+                            Bookings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/promos}">
+                            Manage Promotions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/admin/reports}">
+                            Reports
+                        </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Showings for <span th:text="${mov.title}"></span></h1>
+            </div>
+
+            <form th:action="@{/admin/movies/showings}" method="post">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Show Date</th>
+                            <th>Show Time</th>
+                            <th>Ticket Price</th>
+                            <th>Edit Showing</th>
+                            <th>Delete Showing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="s : *{showings}">
+                            <td th:text="${s.showdate}"></td>
+                            <td th:text="${s.showtime}"></td>
+                            <td th:text="${'$' + s.price}"></td>
+                            <td>
+                                <button class="btn btn-info" type="submit" id="edit_show" name="edit_show" th:value="${s.id}">Edit</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="submit" id="delete_show" name="delete_show" th:value="${s.id}"><img
+                                        th:src="@{/img/delete_white.svg}" height="24" width="24"> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="btn btn-success" type="submit" id="add_show" name="add_show"><img
+                        th:src="@{/img/add_white.svg}" height="24" width="24"> Add Showing
+                </button>
+            </form>
+        </main>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
