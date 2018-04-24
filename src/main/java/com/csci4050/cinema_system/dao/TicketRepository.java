@@ -1,6 +1,5 @@
 package com.csci4050.cinema_system.dao;
 
-import com.csci4050.cinema_system.model.Movie;
 import com.csci4050.cinema_system.model.Ticket;
 import org.springframework.data.repository.CrudRepository;
 
