@@ -3,6 +3,7 @@ package com.csci4050.cinema_system.controller;
 import com.csci4050.cinema_system.component.MovieListsFormatter;
 import com.csci4050.cinema_system.dao.MovieRepository;
 import com.csci4050.cinema_system.dao.ShowingRepository;
+import com.csci4050.cinema_system.dao.TicketRepository;
 import com.csci4050.cinema_system.dao.UserRepository;
 import com.csci4050.cinema_system.model.Booking;
 import com.csci4050.cinema_system.model.Movie;
@@ -33,6 +34,9 @@ public class BookingWebController {
 
     @Autowired
     private ShowingRepository showingRepository;
+
+    @Autowired
+    private TicketRepository ticketRepository;
 
     @Autowired
     MailSender mailSender;
@@ -77,7 +81,7 @@ public class BookingWebController {
         t.setMovie(b.getMovie());
         t.setShowing(showingRepository.findShowingById(Long.valueOf(s_id)));
         t.setUser(userRepository.findByEmail(principal.getName()));
-        tick
+        t = ticketRepository.save(t);
         b.addTicket(t);
 
         session.setAttribute("booking", b);

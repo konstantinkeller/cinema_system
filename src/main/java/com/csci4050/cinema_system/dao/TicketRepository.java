@@ -8,6 +8,4 @@ import java.sql.Date;
 
 public interface TicketRepository extends CrudRepository<Ticket, Long> {
     Ticket findTicketById(Long TicketId);
-    Iterable<Ticket> findTicketsByShowdate(Date TicketShowdate);
-    Iterable<Ticket> findTicketByMovie(Movie TicketMovie);
 }
